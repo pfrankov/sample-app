@@ -45,7 +45,7 @@ module.exports = function(grunt) {
 		return result;
 	}
 
-
+	require("time-grunt")(grunt);
 	grunt.initConfig({
 		pkg: grunt.file.readJSON("package.json"),
 
@@ -317,7 +317,9 @@ module.exports = function(grunt) {
 		}
 	});
 
-	require('load-grunt-tasks')(grunt);
+	require("jit-grunt")(grunt, {
+		useminPrepare: "grunt-usemin"
+	});
 
 	grunt.registerTask("build:dev:css", [
 		"sass:tmp",

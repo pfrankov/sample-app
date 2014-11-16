@@ -1,5 +1,5 @@
 {
-  "name": "STRAP",
+  "name": "sample-app",
   "private": true,
   "dependencies": {
     "angular": "~1.3.2",
