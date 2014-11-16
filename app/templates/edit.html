@@ -1,0 +1,24 @@
+<div ng-controller="UserEditCtrl">
+	<div class="Container">
+		<div class="Row BottomMargin-2"><a ui-sref="table" class="Iconed"><i class="Icon Entypo LevelUp"></i> <span>Back</span></a></div>
+		
+		<div class="Row">
+			<div class="Col-2">First Name</div>
+			<div class="Col-3"><input type="text" ng-model="user.firstName" /></div>
+		</div>
+		<div class="Row">
+			<div class="Col-2">Last Name</div>
+			<div class="Col-3"><input type="text" ng-model="user.lastName" /></div>
+		</div>
+		<div class="Row">
+			<div class="Col-2">Nickname</div>
+			<div class="Col-3"><input type="text" ng-model="user.nickname" /></div>
+		</div>
+		<div class="Row TopMargin-1">
+			<div class="Col-3 Offset-2">
+				<button class="Button" ng-if="user.id" ng-click="save()"><i class="Icon Entypo Floppy"></i> Save</button>
+				<button class="Button" ng-if="!user.id" ng-click="add()"><i class="Icon Entypo PlusCircled"></i> Add User</button>
+			</div>
+		</div>
+	</div>
+</div>
