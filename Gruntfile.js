@@ -45,7 +45,7 @@ module.exports = function(grunt) {
 		return result;
 	}
 
-	require("time-grunt")(grunt);
+	//require("time-grunt")(grunt);
 	grunt.initConfig({
 		pkg: grunt.file.readJSON("package.json"),
 
@@ -141,7 +141,7 @@ module.exports = function(grunt) {
 						}],
 						css: [{
 							name: "concat",
-							createConfig: function(context, block){								
+							createConfig: function(context, block){
 								var copyTask = grunt.config("copy");
 								copyTask.assets.src = copyTask.assets.src.concat(makePathIgnored(context.inFiles));
 
@@ -230,6 +230,20 @@ module.exports = function(grunt) {
 						"<%= paths.app %>"
 					]
 				}
+			},
+			test: {
+				options: {
+					base: [
+						"<%= paths.app %>"
+					]
+				}
+			},
+			testDist: {
+				options: {
+					base: [
+						"<%= paths.dist %>"
+					]
+				}
 			}
 		},
 
@@ -261,6 +275,15 @@ module.exports = function(grunt) {
 				options: {
 					spawn: false,
 					livereload: true
+				}
+			},
+			
+			test: {
+				files: ["test/spec/**/*.js", "app/.tmp/**/*.js"],
+				tasks: ["karma:unit"],
+				options: {
+					spawn: true,
+					interval: 10
 				}
 			}
 		},
@@ -314,6 +337,28 @@ module.exports = function(grunt) {
 					}
 				]
 			}
+		},
+		karma: {
+			unit: {
+				options: {
+					configFile: "./test/karma.conf.js",
+					files: [
+						"app/.tmp/usemin/scripts/vendor.js",
+						"app/.tmp/scripts/angular/**/*.js",
+						"test/spec/**/*.js"
+					]
+				}
+			},
+			dist: {
+				options: {
+					configFile: "./test/karma.conf.js",
+					files: [
+						"dist/scripts/vendor.js",
+						"dist/scripts/combined.js",
+						"test/spec/**/*.js"
+					]
+				}
+			}
 		}
 	});
 
@@ -330,15 +375,27 @@ module.exports = function(grunt) {
 		"browserify"
 	]);
 
+	grunt.registerTask("test:js", [
+		"useminPrepare",
+		"concat:generated",
+		"uglify:generated"
+	]);
+	
+	
+	
+
 
 
 	grunt.registerTask("default", [
 		"build:dev:css",
 		"build:dev:js",
 		"connect:livereload",
-		"watch"
+		"watch:css",
+		"watch:js",
+		"watch:html",
+		"watch:sass"
 	]);
-
+	
 	grunt.registerTask("build", function(){
 		grunt.task.run([
 			"clean:dist",
@@ -354,6 +411,8 @@ module.exports = function(grunt) {
 			"usemin",
 			"imagemin",
 			"copy:assets",
+			"connect:testDist",
+			"karma:dist",
 			"clean:tmp"
 		]);
 
@@ -371,7 +430,14 @@ module.exports = function(grunt) {
 			"size_report"
 		]);
 	});
-	
+
+	grunt.registerTask("test", [
+		"build:dev:css",
+		"test:js",
+		"connect:test",
+		"karma:unit",
+		"watch"
+	]);
 
 };
 

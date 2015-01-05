@@ -35,7 +35,7 @@ App.config(function($stateProvider, $urlRouterProvider) {
 });
 
 App.run(function(localStorageService){
-	if ( !localStorageService.get("users") ) {
+	if ( !localStorageService.get("users") || (localStorageService.get("users") instanceof Array && !localStorageService.get("users" ).length) ) {
 		localStorageService.set("users", require("./mocks/users.json"));
 	}
 });
