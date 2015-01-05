@@ -21,5 +21,5 @@ npm install
 
 ###Execution
 `grunt` runs development server  
-`grunt test` runs testing server
+`grunt test` runs testing server  
 `grunt build` build project: combine CSS and JS into `dist` directory
