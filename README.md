@@ -1,6 +1,8 @@
 #Sample-app
 ##With Angular and [STRAP](https://github.com/pfrankov/STRAP)
 
+###[View the demo](http://pfrankov.github.io/sample-app/)
+
 ###Prerequirements:
 * [Node.js with npm](http://nodejs.org/)
 * [Ruby](https://www.ruby-lang.org) ([for Windows](http://rubyinstaller.org/))
